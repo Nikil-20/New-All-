@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid rgb(16, 15, 15);
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body class="bg-blue-300">
+    <div id="result" class="p-4"> </div>
+    <button onclick="loaddata()" class="bg-blue-500 text-white p-2 rounded hover:bg-sky-700 ">Load Data</button>
+    <br><br>
+
+    <table class="min-w-full bg-red-100 ">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">ID</th>
+                <th class="py-2 px-4 border-b">Name</th>
+                <th class="py-2 px-4 border-b">Username</th>
+                <th class="py-2 px-4 border-b">Email</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script>
+        function loaddata() {
+            var server = new XMLHttpRequest();
+            server.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.querySelector("#tbody").innerHTML = ""
+
+                    var newdata = JSON.parse(this.responseText);
+                    console.log(newdata);
+                    newdata.forEach((val, index) => {
+                        document.querySelector("#tbody").innerHTML += ` <tr> 
+                            <td class="py-2 px-4 border-b">${index + 1}</td>
+                            <td class="py-2 px-4 border-b">${val.name}</td>
+                            <td class="py-2 px-4 border-b">${val.username}</td>
+                            <td class="py-2 px-4 border-b">${val.email}</td>
+                        </tr>`
+                    });
+                }
+            }
+            server.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+            server.send();
+        }
+    </script>
+</body>
+
+</html>
