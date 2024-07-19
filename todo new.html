@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/70142788c5.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gradient-to-r from-blue-600 to-blue-200  flex items-center justify-center min-h-screen">
+    <div class="bg-gradient-to-r from-blue-200 to-blue-600  p-8 rounded shadow-lg w-full max-w-md">
+        <h1 class="text-3xl font-bold mb-4 ">
+            to do list
+        </h1>
+        <div class="flex mb-4">
+            <input type="text" id="inp" placeholder="Enter to  do"
+                class="border border-gray-300 p-2 rounded flex-grow mr-2 border-2 border-2 border-black ">
+            <button onclick="add()"
+                class="bg-blue-700 text-white p-2 rounded  hover:bg-blue-400 border-2 border-black ">
+                ADD TODO
+            </button>
+        </div>
+        <ul class="list-disc list-inside  "> </ul>
+    </div>
+    <script>
+        a = [];
+        function add() {
+            var b = document.querySelector("#inp").value;
+            if (b) {
+                a.push(b);
+                document.querySelector("#inp").value = '';
+                show();
+            }
+            else {
+                alert("write something")
+            }
+        }
+        function show() {
+            document.querySelector("ul").innerHTML = '';
+
+            a.forEach((val, i) => {
+                document.querySelector("ul").innerHTML += ` <li class="mb-2 flex items-center justify-between text-xl font-serif  " > ${val}    <button onclick="dilit(${i} )"  class="bg-red-700 text-white p-1 rounded mr-2 border-2 border-black hover:bg-red-400  "  >DELETE </button>  <button onclick="edt(${i} )"  class="bg-green-700 text-white p-1 rounded border-2 border-black hover:bg-green-400 " >EDIT </button>  </li>`
+
+            })
+        }
+        function dilit(i) {
+            alert("Do you want delete");
+            a.splice(i, 1);
+            show();
+        }
+        function edt(i) {
+            var d = window.prompt("Enter new to do");
+            if (d) {
+                a[i] = d;
+                show();
+            }
+            else {
+                alert("Write something")
+            }
+        }
+    </script>
+</body>
+
+</html>
